@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Todo_List.Models;
 
@@ -11,27 +12,61 @@ namespace Todo_List.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private ApplicationDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext dbContext)
         {
-            _logger = logger;
+            _dbContext = dbContext;
         }
-
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        public IActionResult Login(Users user)
         {
-            return View();
+            var userName = _dbContext.Users.FirstOrDefault().userName;
+            var password = _dbContext.Users.FirstOrDefault().password;
+
+            if (userName == user.userName && password == user.password)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+
+        public IActionResult Users()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(_dbContext.Users.ToList());
+        }
+
+        
+
+
+        [HttpGet]
+        public IActionResult Register() => View();
+
+        [HttpPost]
+        public IActionResult Register(Users users)
+        {
+            if (users.userName != _dbContext.Users.FirstOrDefault().userName)
+            {
+                _dbContext.Users.Add(users);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View();
+
         }
     }
 }
