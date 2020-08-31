@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo_List.Models
+namespace Todo_List.DAL.Entities
 {
     public class UserRoles
     {
@@ -13,6 +13,6 @@ namespace Todo_List.Models
         public string roleName { get; set; }
         public virtual ICollection<Users> users { get; set; }
         public virtual ICollection<TodoHeader> todoHeaders { get; set; }
-        public virtual ICollection<TodoList> todoLists { get; set; }
+        public virtual ICollection<todoList> todoLists { get; set; }
     }
 }

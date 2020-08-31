@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Todo_List.Models
+namespace Todo_List.DAL.Entities
 {
     public class Users
     {

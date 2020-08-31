@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Todo_List.DAL.Entities;
 
-namespace Todo_List.Models
+namespace TodoList.DAL.EntitiyFramework
 {
-    public class ApplicationDbContext : DbContext
+    public class TodoListDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+        public TodoListDbContext(DbContextOptions<TodoListDbContext> options) 
             : base(options)
         {
 
@@ -16,6 +17,6 @@ namespace Todo_List.Models
         public DbSet<Users> Users { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
         public DbSet<TodoHeader> TodoHeader { get; set; }
-        public DbSet<TodoList> TodoList { get; set; }
+        public DbSet<todoList> TodoList { get; set; }
     }
 }
