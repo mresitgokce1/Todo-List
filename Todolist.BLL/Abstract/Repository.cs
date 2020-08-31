@@ -13,9 +13,10 @@ namespace Todolist.BLL.Abstract
 
         private readonly TodoListDbContext _todoListDbContext;
 
-        public Repository()
+        public Repository(TodoListDbContext todoListDbContext)
         {
             _objectSet = _todoListDbContext.Set<T>();
+            _todoListDbContext = todoListDbContext;
         }
 
         public List<T> List()

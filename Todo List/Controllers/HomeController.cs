@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Todo_List.DAL.Entities;
 using Todolist.BLL.Abstract;
+using TodoList.DAL.EntitiyFramework;
 
 namespace Todo_List.Controllers
 {
     public class HomeController : Controller
     {
+        private TodoListDbContext dlsds;
         Repository<Users> repoUser = new Repository<Users>();
 
         public IActionResult Index()
