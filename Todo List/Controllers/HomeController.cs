@@ -25,13 +25,31 @@ namespace Todo_List.Controllers
 
         public IActionResult Index()
         {
+            
             ViewBag.Users = _userManager.List();
             return View();
         }
 
-        public IActionResult Users()
+        [HttpGet]
+        public IActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(Users user)
+        {
+            foreach (var userName in _userManager.List())
+            {
+                if (userName.userName == user.userName)
+                {
+                    return View();
+                }
+            }
+            _userManager.Insert(user);
+            _userManager.Save();
+            return RedirectToAction("Login");
+
         }
 
         public IActionResult Login()
@@ -39,9 +57,5 @@ namespace Todo_List.Controllers
             return View();
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
     }
 }
