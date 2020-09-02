@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Todo_List.DAL.Entities;
+using Todolist.BLL.Abstract;
 using TodoList.DAL.EntitiyFramework;
 
 
@@ -28,6 +30,8 @@ namespace Todo_List
         {
 
             string connection = @"Data Source=DESKTOP-Q5C30EP\SQLEXPRESS;Initial Catalog=todolist;Integrated Security=True";
+            services.AddScoped<TodoListDbContext>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddDbContext<TodoListDbContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
             services.AddMvc();
@@ -57,7 +61,9 @@ namespace Todo_List
 
             app.UseRouting();
 
+
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {

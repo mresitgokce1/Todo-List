@@ -14,12 +14,19 @@ namespace Todo_List.Controllers
 {
     public class HomeController : Controller
     {
-        private TodoListDbContext dlsds;
-        Repository<Users> repoUser = new Repository<Users>();
+        private readonly IRepository<Users> _userManager;
+
+
+        public HomeController(IRepository<Users> userManager)
+        {
+            _userManager = userManager;
+        }
+
 
         public IActionResult Index()
         {
-            return View(repoUser.List());
+            ViewBag.Users = _userManager.List();
+            return View();
         }
 
         public IActionResult Users()

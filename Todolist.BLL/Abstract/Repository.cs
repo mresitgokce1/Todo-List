@@ -9,29 +9,29 @@ namespace Todolist.BLL.Abstract
 {
     public class Repository<T>: IRepository<T> where T : class
     {
-        private DbSet<T> _objectSet;
 
-        private readonly TodoListDbContext _todoListDbContext;
+        protected TodoListDbContext _context;
+        private DbSet<T> _dbSet;
 
-        public Repository(TodoListDbContext todoListDbContext)
+        public Repository(TodoListDbContext context)
         {
-            _objectSet = _todoListDbContext.Set<T>();
-            _todoListDbContext = todoListDbContext;
+            _context = context;
+            _dbSet = _context.Set<T>();
         }
 
         public List<T> List()
         {
-            return _objectSet.ToList();
+            return _context.Set<T>().ToList();
         }
 
         public void Save()
         {
-            _todoListDbContext.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Insert(T obj)
         {
-            _objectSet.Add(obj);
+            _context.Set<T>().Add(obj);
             Save();
         }
 
@@ -42,13 +42,13 @@ namespace Todolist.BLL.Abstract
 
         public void Delete(T obj)
         {
-            _objectSet.Remove(obj);
+            _context.Set<T>().Remove(obj);
             Save();
         }
 
         public T GetById(int Id)
         {
-            return _objectSet.Find(Id);
+            return _context.Set<T>().Find(Id);
         }
     }
 }
