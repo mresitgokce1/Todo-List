@@ -39,5 +39,22 @@ namespace Todo_List.Controllers
             _userManager.Delete(user);
             return RedirectToAction("UserList");
         }
+
+        [HttpGet]
+        public IActionResult UserUpdate(int id)
+        {
+            var user = _userManager.GetById(id);
+            ViewBag.EditUser = user;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UserUpdate(Users user)
+        {
+            _userManager.Update(user);
+            return RedirectToAction("UserList");
+        }
+
+
     }
 }

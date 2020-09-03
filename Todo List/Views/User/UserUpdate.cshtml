@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "UserUpdate";
+}
+
+
+@{
+    Users user = ViewBag.EditUser;
+}
+
+<form method="post">
+        <input asp-for="@user.name" type="text" class="form-control" placeholder="Full name" value="@user.name">
+        <input asp-for="@user.surname" type="text" class="form-control" placeholder="Surname" value="@user.surname">
+        <input asp-for="@user.userName" type="text" class="form-control" placeholder="User Name" value="@user.userName">
+        <input asp-for="@user.password" type="password" class="form-control" placeholder="Password" value="@user.password">
+        <button type="submit" class="btn btn-primary btn-block">Update</button>
+</form>

@@ -6,9 +6,10 @@
 <div>
         @foreach (var user in users)
         {
-        <div>
-            @user.userName--@user.name-- @user.surname-- @user.password --
-            <a asp-controller="User" asp-action="UserDelete" asp-route-id="@user.userId">DELETE USER</a>
-        </div>
+    <div>
+        @user.userName--@user.name-- @user.surname-- @user.password --
+        <a asp-controller="User" asp-action="UserDelete" asp-route-id="@user.userId">DELETE USER</a>
+        <a asp-controller="User" asp-action="UserUpdate" asp-route-id="@user.userId">UPDATE USER</a>
+    </div>
         }
 </div>

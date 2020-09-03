@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Todo_List.DAL.Entities;
 using TodoList.DAL.EntitiyFramework;
 
 namespace Todolist.BLL.Abstract
@@ -37,6 +38,7 @@ namespace Todolist.BLL.Abstract
 
         public void Update(T obj)
         {
+            _context.Set<T>().Update(obj);
             Save();
         }
 
