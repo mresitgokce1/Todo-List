@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Todo_List.DAL.Entities;
 using Todolist.BLL.Abstract;
+using Todolist.BLL.UserManager;
 using TodoList.DAL.EntitiyFramework;
 
 
@@ -30,9 +31,18 @@ namespace Todo_List
         {
 
             string connection = @"Data Source=DESKTOP-Q5C30EP\SQLEXPRESS;Initial Catalog=todolist;Integrated Security=True";
+            
+            services.AddAuthentication("CookieAuthentication").AddCookie("CookieAuthentication",
+                config =>
+                {
+                    config.Cookie.Name = "TodoListAuthenticaiton";
+                    config.LoginPath = "/Home/Login";
+                });
+
             services.AddScoped<TodoListDbContext>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddDbContext<TodoListDbContext>(options => options.UseSqlServer(connection));
+            services.AddScoped<UserManager>();
             services.AddControllersWithViews();
             services.AddMvc();
         }
@@ -61,7 +71,10 @@ namespace Todo_List
 
             app.UseRouting();
 
+            // Kimsin?
+            app.UseAuthentication();
 
+            // Yetkin var mı?
             app.UseAuthorization();
             
 

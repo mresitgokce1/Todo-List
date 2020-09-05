@@ -12,5 +12,7 @@ namespace Todolist.BLL.Abstract
         void Update(T obj);
         void Delete(T obj);
         T GetById(int Id);
+
+        
     }
 }
