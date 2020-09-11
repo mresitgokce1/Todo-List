@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Todo_List.DAL.Entities;
 using TodoList.DAL.EntitiyFramework;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Todolist.BLL.Abstract
 {
@@ -38,8 +39,8 @@ namespace Todolist.BLL.Abstract
 
         public void Update(T obj)
         {
-            _context.Set<T>().Update(obj);
-            Save();
+            _context.Entry(obj).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(T obj)
@@ -48,7 +49,7 @@ namespace Todolist.BLL.Abstract
             Save();
         }
 
-        public T GetById(int Id)
+        public virtual T GetById(int Id)
         {
             return _context.Set<T>().Find(Id);
         }

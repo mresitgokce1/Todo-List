@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "ListRoles";
+    List<UserRoles> roleUsers = ViewBag.listRoles;
+}
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">User Roles</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Role Name</th>
+                                        <th>Edit Roles</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var role in roleUsers)
+                                    {
+                                        <tr>
+                                            <td>@role.roleName</td>
+                                            <td>
+                                                <a asp-controller="Role" asp-action="UpdateRole" asp-route-id="@role.roleId" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                                <a asp-controller="Role" asp-action="DeleteRole" asp-route-id="@role.roleId" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Role Name</th>
+                                        <th>Edit Roles</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+
+

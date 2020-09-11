@@ -12,7 +12,6 @@ namespace Todo_List.DAL.Entities
         public int roleId { get; set; }
         public string roleName { get; set; }
         public virtual ICollection<Users> users { get; set; }
-        public virtual ICollection<TodoHeader> todoHeaders { get; set; }
-        public virtual ICollection<todoList> todoLists { get; set; }
+        
     }
 }

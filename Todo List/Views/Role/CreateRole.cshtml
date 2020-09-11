@@ -1,0 +1,32 @@
+﻿@model Todo_List.DAL.Entities.UserRoles
+@{
+    ViewData["Title"] = "CreateRole";
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add New User Role</h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="roleName">Role Name</label>
+                                <input asp-for="roleName" type="text" class="form-control" placeholder="Enter user role">
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Add Role</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

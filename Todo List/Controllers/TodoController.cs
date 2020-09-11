@@ -10,11 +10,22 @@ namespace Todo_List.Controllers
     [Authorize]
     public class TodoController : Controller
     {
-        public IActionResult Index()
+        public IActionResult AddTodo()
         {
             return View();
         }
-        public IActionResult AddTodo()
+
+        public IActionResult DeleteTodo()
+        {
+            return View();
+        }
+
+        public IActionResult ListTodo()
+        {
+            return View();
+        }
+
+        public IActionResult UpdateTodo()
         {
             return View();
         }

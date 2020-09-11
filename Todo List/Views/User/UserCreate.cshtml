@@ -1,0 +1,58 @@
+﻿@model Todo_List.DAL.Entities.Users
+@{
+    ViewData["Title"] = "UserCreate";
+    List<UserRoles> userRoles = ViewBag.roles;
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">Add New User</h3>
+                    </div>
+                    <form method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="userName">User Name</label>
+                                <input asp-for="userName" type="text" class="form-control" placeholder="Enter user name">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="password">Password</label>
+                                <input asp-for="password" type="text" class="form-control" placeholder="Enter password">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="name">Name</label>
+                                <input asp-for="name" type="text" class="form-control" placeholder="Enter name">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="surname">Surname</label>
+                                <input asp-for="surname" type="text" class="form-control" placeholder="Enter surname">
+                            </div>
+                            <div class="form-group">
+                                <label>User Role</label>
+                                <select asp-for="roleId" class="form-control">
+                                    
+                                    @foreach (var roles in userRoles)
+                                    {
+                                        <option value="@roles.roleId">@roles.roleName</option>
+                                    }
+
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-danger">Add User</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

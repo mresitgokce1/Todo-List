@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Todo_List.DAL.Entities;
 using Todolist.BLL.Abstract;
+using Todolist.BLL.RoleManager;
 using Todolist.BLL.UserManager;
 using TodoList.DAL.EntitiyFramework;
 
@@ -43,6 +44,7 @@ namespace Todo_List
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddDbContext<TodoListDbContext>(options => options.UseSqlServer(connection));
             services.AddScoped<UserManager>();
+            services.AddScoped<RoleManager>();
             services.AddControllersWithViews();
             services.AddMvc();
         }
@@ -82,7 +84,7 @@ namespace Todo_List
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Dashboard}/{id?}");
             });
         }
     }

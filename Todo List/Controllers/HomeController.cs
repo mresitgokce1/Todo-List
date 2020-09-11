@@ -11,26 +11,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Todo_List.DAL.Entities;
 using Todolist.BLL.Abstract;
+using Todolist.BLL.UserManager;
 using TodoList.DAL.EntitiyFramework;
 
 namespace Todo_List.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository<Users> _userManager;
+        private readonly UserManager _userManager;
 
 
-        public HomeController(IRepository<Users> userManager)
+        public HomeController(UserManager userManager)
         {
             _userManager = userManager;
-        }
-
-        [Authorize]
-        public IActionResult Index()
-        {
-            
-            ViewBag.Users = _userManager.List();
-            return View();
         }
 
         public IActionResult Dashboard()
@@ -47,17 +40,15 @@ namespace Todo_List.Controllers
         [HttpPost]
         public IActionResult Register(Users user)
         {
-            foreach (var userName in _userManager.List())
+            if (!_userManager.CheckUser(user.userName))
             {
-                if (userName.userName == user.userName)
-                {
-                    return View();
-                }
+                _userManager.Insert(user);
+                return RedirectToAction("Login");
             }
-            _userManager.Insert(user);
-            _userManager.Save();
-            return RedirectToAction("Login");
-
+            else
+            {
+                return Ok("Böyle bir kullanıcı vardır.");
+            }
         }
 
         [HttpGet]
@@ -69,22 +60,21 @@ namespace Todo_List.Controllers
         [HttpPost]
         public IActionResult Login(Users user)
         {
-          
-            foreach (var users in _userManager.List())
+            if (_userManager.UserLoginCheck(user))
             {
-                if (users.userName == user.userName && users.password == user.password)
+                var userClaims = new List<Claim>()
                 {
-                    var userClaims = new List<Claim>()
-                    {
-                        new Claim(ClaimTypes.Name, user.userName),
-                    };
+                    new Claim("UserName", user.userName),
+                };
 
-                    var userIdentity = new ClaimsIdentity(userClaims, "User Identity");
-                    var userPrincipal = new ClaimsPrincipal(new[] { userIdentity });
-                    HttpContext.SignInAsync(userPrincipal);
-                }
+                var userIdentity = new ClaimsIdentity(userClaims, "User Identity");
+                var userPrincipal = new ClaimsPrincipal(new[] { userIdentity });
+                HttpContext.SignInAsync(userPrincipal);
+
+                return RedirectToAction("Dashboard");
             }
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Login");
         }
 
         public IActionResult Logout()

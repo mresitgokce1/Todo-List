@@ -1,15 +1,65 @@
 ﻿@{
     ViewData["Title"] = "UserList";
     List<Users> users = ViewBag.UserList;
-
+    List<UserRoles> userRoles = ViewBag.RoleList;
 }
-<div>
-        @foreach (var user in users)
-        {
-    <div>
-        @user.userName--@user.name-- @user.surname-- @user.password --
-        <a asp-controller="User" asp-action="UserDelete" asp-route-id="@user.userId">DELETE USER</a>
-        <a asp-controller="User" asp-action="UserUpdate" asp-route-id="@user.userId">UPDATE USER</a>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Users</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>User Name</th>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Password</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in users)
+                                {
+                                    <tr>
+                                        <td>@userRoles.Where(a => a.roleId == @user.roleId).Select(s=>s.roleName).FirstOrDefault()</td>
+                                        <td>@user.userName</td>
+                                        <td>@user.name</td>
+                                        <td>@user.surname</td>
+                                        <td>@user.password</td>
+                                        <td>
+                                            <a asp-controller="User" asp-action="UserUpdate" asp-route-id="@user.userId" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                            <a asp-controller="User" asp-action="UserDelete" asp-route-id="@user.userId" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>User Name</th>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Password</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
     </div>
-        }
-</div>
+    <!-- /.container-fluid -->
+</section>

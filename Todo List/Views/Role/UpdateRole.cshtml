@@ -1,0 +1,34 @@
+﻿@model Todo_List.DAL.Entities.UserRoles
+@{
+    ViewData["Title"] = "UpdateRole";
+    UserRoles userRoles = ViewBag.editRole;
+}
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Update User Role</h3>
+                    </div>
+                    <form method="post">
+                     
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="roleName">Role Name</label>
+                                <input asp-for="roleName" type="text" class="form-control" placeholder="Enter user role" value="@userRoles.roleName">
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Update Role</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
